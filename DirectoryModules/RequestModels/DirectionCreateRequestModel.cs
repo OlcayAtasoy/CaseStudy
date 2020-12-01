@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.DataModel.Entities
+namespace DirectoryModules.RequestModels
 {
-    public class Directory
+    public class DirectionCreateRequestModel
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Company { get; set; }
-        public virtual ICollection<CommunicationInformation> CommunicationInformation { get; set; }
+        public List<CommunicationInformationRequestModel> CommunicationInformation { get; set; }
     }
 }
