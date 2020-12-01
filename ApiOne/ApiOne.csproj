@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DirectoryModules\DirectoryModules.csproj" />
+    <ProjectReference Include="..\DirectoryModuless\DirectoryModules.csproj" />
     <ProjectReference Include="..\Infrastructure.DataModel\Infrastructure.DataModel.csproj" />
   </ItemGroup>
 

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DirectoryModules.Contracts;
+﻿using DirectoryModules.Contracts;
 using DirectoryModules.RequestModels;
 using Infrastructure.CoreQueue.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiOne.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public partial class DirectoryController : Controller
     {
         private readonly IDirectoryContract _directoryContract;

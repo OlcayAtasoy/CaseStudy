@@ -12,9 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiOne\ApiOne.csproj" />
-    <ProjectReference Include="..\ApiTwo\ApiTwo.csproj" />
-    <ProjectReference Include="..\DirectoryModules\DirectoryModules.csproj" />
     <ProjectReference Include="..\Infrastructure.CoreQueue\Infrastructure.CoreQueue.csproj" />
     <ProjectReference Include="..\Infrastructure.DataModel\Infrastructure.DataModel.csproj" />
   </ItemGroup>

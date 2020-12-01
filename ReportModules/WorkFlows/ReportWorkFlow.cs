@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using DirectoryModules.Contracts;
-using DirectoryModules.RequestModels;
-using DirectoryModules.ResponseModels;
+﻿using DirectoryModules.Contracts;
 using Infrastructure.CoreQueue.Model;
 using Infrastructure.DataModel.Entities;
 using Infrastructure.DataModel.Enum;
@@ -43,7 +40,7 @@ namespace DirectoryModules.WorkFlows
             Reports reports = _reportRepository.Table.Where(x => x.ReportServiceStatus == (int)EnumReportServiceStatus.Hazirlaniyor && x.ReportDate ==request.ReportDate).FirstOrDefault();
             reports.PersonCount = LocationPersonCount;
             reports.PhoneNumberCount = LocationPhoneCount;
-            reports.ReportServiceStatus = (int)EnumReportServiceStatus.Hazirlaniyor;
+            reports.ReportServiceStatus = (int)EnumReportServiceStatus.Tamamlandi;
             reports.ReportStatus = "Tamamlandi";
 
             using (var transaction = _context.Database.BeginTransaction())
@@ -51,7 +48,6 @@ namespace DirectoryModules.WorkFlows
                 try
                 {
                     _reportRepository.Update(reports);
-
                     transaction.Commit();
                     response = true;
                 }

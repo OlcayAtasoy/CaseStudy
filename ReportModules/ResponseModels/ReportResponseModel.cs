@@ -15,4 +15,3 @@ namespace ReportModules.ResponseModels
         public int ReportServiceStatus { get; set; }
     }
 }
-}
