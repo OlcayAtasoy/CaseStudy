@@ -1,23 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Infrastructure.DataModel.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
 
-namespace ApiTwo
+namespace ReportingJob
 {
-    public class Startup
+    public class Program
     {
-        public Startup(IConfiguration configuration)
+        public Program(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -32,8 +27,8 @@ namespace ApiTwo
             services.AddDbContext<MyDbContext>(options =>
             options.UseNpgsql(
            Configuration.GetConnectionString("ConnectionStringsPostgresql")
-           )
-           );
+           ));
+           services.AddTransient(typeof(Worker));
 
         }
 
@@ -55,6 +50,16 @@ namespace ApiTwo
             {
                 endpoints.MapControllers();
             });
+        }
+
+        public void Main(string[] args)
+        {
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            serviceProvider.GetService<Worker>().Run("ReportJob");
+            //worker.Run();
+            //serviceProvider.GetService<Worker>().Run("ReportJob");
         }
     }
 }

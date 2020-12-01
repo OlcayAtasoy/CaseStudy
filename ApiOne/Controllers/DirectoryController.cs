@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DirectoryModules.Contracts;
 using DirectoryModules.RequestModels;
+using Infrastructure.CoreQueue.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiOne.Controllers
@@ -39,6 +40,11 @@ namespace ApiOne.Controllers
         {
             return Ok(_directoryContract.GetCommunicationInformationListGridData(request));
         }
-        
+        [HttpPost]
+        public bool GetExecuteReportJob(ReportsRequestModel requestModel)
+        {
+            return _directoryContract.ExecuteReportJob(requestModel);
+        }
+
     }
 }

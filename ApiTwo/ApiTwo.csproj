@@ -4,5 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.CoreQueue\Infrastructure.CoreQueue.csproj" />
+    <ProjectReference Include="..\ReportModules\ReportModules.csproj" />
+  </ItemGroup>
+
 
 </Project>

@@ -2,6 +2,8 @@
 using DirectoryModules.Contracts;
 using DirectoryModules.RequestModels;
 using DirectoryModules.ResponseModels;
+using Infrastructure.CoreQueue;
+using Infrastructure.CoreQueue.Model;
 using Infrastructure.DataModel.Entities;
 using Infrastructure.DataModel.Enum;
 using Infrastructure.DataModel.Interface;
@@ -20,15 +22,18 @@ namespace DirectoryModules.WorkFlows
         IDirectoryRepository _directoryRepository;
         ICommunicationInformationRepository _communicationInformationRepository;
         MyDbContext _context;
+        IReportRepository _reportRepository;
         public DirectoryWorkFlow(IMapper mapper,
             IDirectoryRepository directoryRepository,
             ICommunicationInformationRepository communicationInformationRepository,
-            MyDbContext context)
+            MyDbContext context,
+            IReportRepository reportRepository)
         {
             _mapper = mapper;
             _directoryRepository = directoryRepository;
             _communicationInformationRepository = communicationInformationRepository;
             _context = context;
+            _reportRepository = reportRepository;
 
         }
         public DirectoryResponseModel CreateDirection(DirectionCreateRequestModel request)
@@ -139,13 +144,35 @@ namespace DirectoryModules.WorkFlows
                          where communicationInformation.DirectoryId == requestModel.DirectoryId
                          select new GetCommunicationInformationListGridDataResponseModel
                          {
-                             Id = communicationInformation != null ? communicationInformation.Id:null,
+                             Id = communicationInformation != null ? communicationInformation.Id : null,
                              InformationContent = communicationInformation != null ? communicationInformation.InformationContent : string.Empty,
-                             InformationTypeName = (communicationInformation.InformationTypeId == 1 ? EnumInformationType.PhoneNumber :(communicationInformation.InformationTypeId == 2 ? EnumInformationType.Email :  EnumInformationType.Location)).ToString(),
+                             InformationTypeName = (communicationInformation.InformationTypeId == 1 ? EnumInformationType.PhoneNumber : (communicationInformation.InformationTypeId == 2 ? EnumInformationType.Email : EnumInformationType.Location)).ToString(),
                              IsDeleted = communicationInformation != null ? communicationInformation.IsDeleted : false,
                          });
 
             return query;
+        }
+
+        public bool ExecuteReportJob(ReportsRequestModel requestModel)
+        {
+            bool response = false;
+            if (requestModel.ReportRequest == true)
+            {
+                var publisher = new Publisher();
+                var result = publisher.Publish("ReportJob", requestModel);
+                if (!result)
+                {
+                    Reports reports = new Reports();
+                    reports.ReportStatus = "Hazırlanıyor";
+                    reports.ReportDate = requestModel.ReportDate;
+                    reports.ReportServiceStatus = (int)EnumReportServiceStatus.Hazirlaniyor;
+
+                    _reportRepository.Insert(reports);
+                }
+                response = true;
+            }
+
+            return response;
         }
 
     }
