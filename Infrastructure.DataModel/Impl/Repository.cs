@@ -185,7 +185,6 @@ namespace Infrastructure.DataModel.Impl
         }
 
         private DbSet<T> _entities;
-        private DbSet<T> _readEntities;
 
         /// <summary>
         /// Entities

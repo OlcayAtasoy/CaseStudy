@@ -1,12 +1,15 @@
-﻿using System;
+﻿using DirectoryModules.Contracts;
+using DirectoryModules.WorkFlows;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace DirectoryModules
 {
-    class loc
+    public static class loc
     {
-        static void Main(string[] args)
+        public static void IocModuleInstall(this IServiceCollection services)
         {
-            Console.WriteLine("Hello World!");
+            services.AddTransient<IDirectoryContract, DirectoryWorkFlow>();
         }
     }
 }

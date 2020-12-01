@@ -8,6 +8,7 @@ namespace DirectoryModules.RequestModels
     {
         public Guid Id { get; set; }
         public int InformationTypeId { get; set; }
+        public bool IsDeleted { get; set; }
         public string InformationContent { get; set; }
     }
 }

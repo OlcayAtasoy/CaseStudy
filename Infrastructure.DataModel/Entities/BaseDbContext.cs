@@ -14,5 +14,8 @@ namespace Infrastructure.DataModel.Entities
 
         }
 
+        public DbSet<Directory> Directory { get; set; }
+        public DbSet<CommunicationInformation> CommunicationInformation { get; set; }
+
     }
 }
