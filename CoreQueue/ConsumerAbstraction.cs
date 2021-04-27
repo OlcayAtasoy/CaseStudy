@@ -39,9 +39,9 @@ namespace BL.Atlas.Infrastructure.CoreQueue
         {
             string setting = "";
 #if DEBUG
-            setting = "mongodb://omerv2:omerv2@blmdvatsmdbt1:27017/atlasBackup";
+            setting = "......";
 #else
-            setting = "mongodb://atlasUser:atlasUser@blmdvatsmdbp1:27017/atlasBackup";
+            setting = "......";
 #endif
             var client = new MongoDB.Driver.MongoClient(setting);
             var db = client.GetDatabase("atlasBackup");
@@ -147,8 +147,8 @@ namespace BL.Atlas.Infrastructure.CoreQueue
 
             emailModel.Body = template.ToString();
             emailModel.Subject = qName + " - Başarısız Queue Bilgilendirmesi";
-            emailModel.ToAddress = "bl_atlas_ut@borusan.com";
-            emailModel.FromAddress = "atlas@borusan.com";
+            emailModel.ToAddress = ".....";
+            emailModel.FromAddress = "....";
         }
 
         private IDictionary<string, object> CopyMessageHeaders(IDictionary<string, object> existingProperties)
